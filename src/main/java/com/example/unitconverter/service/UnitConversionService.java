@@ -2,12 +2,20 @@ package com.example.unitconverter.service;
 
 import com.example.unitconverter.api.dtos.ConversionResponseDto;
 import com.example.unitconverter.api.dtos.ConvertedUnit;
+import com.example.unitconverter.entities.ConversionCategory;
+import com.example.unitconverter.repository.ConversionCategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 
 @Service
 public class UnitConversionService {
+
+    @Autowired
+    ConversionCategoryRepository conversionCategoryRepository;
+
+
 
     public ConversionResponseDto getConversionFor(final String from, final Double fromValue) {
 

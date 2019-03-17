@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  postgres9:
+    image: postgres:latest
+    container_name: unitconverterdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - ~/Docker/unitconverterdb/data:/var/lib/postgresql/data

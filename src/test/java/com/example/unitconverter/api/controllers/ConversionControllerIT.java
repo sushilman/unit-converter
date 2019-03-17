@@ -1,12 +1,15 @@
 package com.example.unitconverter.api.controllers;
 
+import com.example.unitconverter.api.dtos.ConversionCategoryDto;
 import com.example.unitconverter.api.dtos.ConversionResponseDto;
+import com.example.unitconverter.entities.ConversionCategory;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
@@ -23,11 +26,14 @@ import static org.fest.assertions.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 public class ConversionControllerIT {
 
-    private static final String BASE_URI = "http://localhost";
-    private static final String WEIGHT_CONVERSION_URI = "/convert/weight";
+    private static final String BASE_PATH = "/convert";
+    private static final String WEIGHT_CONVERSION_URI = BASE_PATH + "/weight";
 
     @LocalServerPort
-    protected int port;
+    private int port;
+
+    @Value("${deploymentTarget}")
+    private String deploymentTarget;
 
     @Test
     public void expectBadRequestForWeightConversionWhenRequiredQueryParamsAreMissing() {
@@ -49,6 +55,12 @@ public class ConversionControllerIT {
         assertThat(conversionResponseDto.getFromValue()).isEqualTo(value);
     }
 
+    @Test
+    public void testPostConversion() {
+        final ConversionCategoryDto conversionCategoryDto = new ConversionCategoryDto("distance", "meters");
+        postConversionCategory(conversionCategoryDto, HttpStatus.CREATED);
+    }
+
     private Response getConversion(final Map<String, String> params, final HttpStatus expectedStatus) {
         return given(getDefaultSpecs())
             .when()
@@ -60,10 +72,21 @@ public class ConversionControllerIT {
             .response();
     }
 
+    private Response postConversionCategory(final ConversionCategoryDto conversionCategoryDto, final HttpStatus expectedStatus) {
+        return given(getDefaultSpecs())
+                .when()
+                .body(conversionCategoryDto)
+                .post(BASE_PATH)
+                .then()
+                .statusCode(expectedStatus.value())
+                .extract()
+                .response();
+    }
+
     private RequestSpecification getDefaultSpecs() {
         RequestSpecBuilder builder = new RequestSpecBuilder();
         builder.setContentType(ContentType.JSON);
-        builder.setBaseUri(BASE_URI);
+        builder.setBaseUri(deploymentTarget);
         builder.setPort(port);
         return builder.build();
     }
