@@ -6,7 +6,6 @@ import com.example.unitconverter.repository.ConversionCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +31,7 @@ public class ConversionCategoryService {
         return conversionCategoryDtos;
     }
 
-    public ConversionCategory findConversionCategoryByUnitType(final String unitType) {
-        return conversionCategoryRepository.findByUnitType(unitType);
+    public ConversionCategory getByCategory(final String category) {
+        return conversionCategoryRepository.findByCategory(category);
     }
 }

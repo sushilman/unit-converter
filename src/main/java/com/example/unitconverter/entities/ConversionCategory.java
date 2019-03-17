@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "conversion_category")
 public class ConversionCategory {
 
@@ -24,8 +25,8 @@ public class ConversionCategory {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "unit_type", nullable = false)
-    private String unitType;
+    @Column(name = "category", nullable = false)
+    private String category;
 
     @Column(name = "base_unit", nullable = false)
     private String baseUnit;
@@ -33,7 +34,7 @@ public class ConversionCategory {
     public static ConversionCategory fromDto(final ConversionCategoryDto conversionCategoryDto) {
         final ConversionCategory conversionCategory = new ConversionCategory();
         conversionCategory.setBaseUnit(conversionCategoryDto.getBaseUnit());
-        conversionCategory.setUnitType(conversionCategoryDto.getUnitType());
+        conversionCategory.setCategory(conversionCategoryDto.getCategory());
 
         return conversionCategory;
     }
@@ -41,7 +42,7 @@ public class ConversionCategory {
     public static ConversionCategoryDto toDto(final ConversionCategory conversionCategory) {
         final ConversionCategoryDto conversionCategoryDto = new ConversionCategoryDto();
         conversionCategoryDto.setBaseUnit(conversionCategory.getBaseUnit());
-        conversionCategoryDto.setUnitType(conversionCategory.getUnitType());
+        conversionCategoryDto.setCategory(conversionCategory.getCategory());
 
         return conversionCategoryDto;
     }

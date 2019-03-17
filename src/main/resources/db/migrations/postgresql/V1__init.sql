@@ -1,11 +1,11 @@
 CREATE TABLE conversion_category (
     id BIGSERIAL NOT NULL,
-    unit_type CHARACTER VARYING(255) NOT NULL,
+    category CHARACTER VARYING(255) NOT NULL,
     base_unit CHARACTER VARYING(255) NOT NULL
 );
 
 ALTER TABLE ONLY conversion_category ADD CONSTRAINT conversion_category_pkey PRIMARY KEY(id);
-ALTER TABLE ONLY conversion_category ADD CONSTRAINT conversion_category_unit_type_unique UNIQUE(unit_type);
+ALTER TABLE ONLY conversion_category ADD CONSTRAINT conversion_category_unit_type_unique UNIQUE(category);
 
 CREATE TABLE conversion_factor (
     id BIGSERIAL NOT NULL,

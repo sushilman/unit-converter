@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConversionCategoryDto {
-    private String unitType;
+    private String category;
     private String baseUnit;
 }

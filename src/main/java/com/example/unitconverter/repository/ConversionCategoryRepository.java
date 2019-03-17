@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface ConversionCategoryRepository extends CrudRepository<ConversionCategory, String> {
-    ConversionCategory findByUnitType(String unitType);
+    ConversionCategory findByCategory(String category);
 
     List<ConversionCategory> findAll();
 }

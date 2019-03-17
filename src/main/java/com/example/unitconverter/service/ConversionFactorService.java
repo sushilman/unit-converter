@@ -19,14 +19,14 @@ public class ConversionFactorService {
     @Autowired
     private ConversionCategoryService conversionCategoryService;
 
-    public void createConversionFactor(final ConversionFactorDto conversionFactorDto, final String unitType) {
-        final ConversionCategory conversionCategory = conversionCategoryService.findConversionCategoryByUnitType(unitType);
+    public void createConversionFactor(final ConversionFactorDto conversionFactorDto, final String category) {
+        final ConversionCategory conversionCategory = conversionCategoryService.getByCategory(category);
         ConversionFactor conversionFactor = ConversionFactor.fromDto(conversionFactorDto, conversionCategory);
         conversionFactorRepository.save(conversionFactor);
     }
 
-    public List<ConversionFactorDto> getConversionFactors(final String unitType) {
-        final List<ConversionFactor> conversionFactors = conversionFactorRepository.findByConversionCategoryUnitType(unitType);
+    public List<ConversionFactorDto> getConversionFactors(final String category) {
+        final List<ConversionFactor> conversionFactors = conversionFactorRepository.findByConversionCategoryCategory(category);
 
         final List<ConversionFactorDto> conversionFactorDtos = conversionFactors
                 .stream()
@@ -36,4 +36,8 @@ public class ConversionFactorService {
         return conversionFactorDtos;
     }
 
+    public ConversionFactorDto getConversionFactorFor(final String category, final String targetUnit) {
+        final ConversionFactorDto conversionFactorDto = conversionFactorRepository.findByConversionCategoryCategoryAndTargetUnit(category, targetUnit);
+        return conversionFactorDto;
+    }
 }

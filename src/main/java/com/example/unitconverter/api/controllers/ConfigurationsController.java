@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/convert")
-public class ConversionController {
+@RequestMapping("/configurations")
+public class ConfigurationsController {
 
     @Autowired
     private ConversionCategoryService conversionCategoryService;
@@ -38,20 +38,27 @@ public class ConversionController {
         return new ResponseEntity<>(conversionCategoryService.getConversionCategories(), HttpStatus.OK);
     }
 
-    @PostMapping("/{unitType}")
+    @PostMapping("/{category}")
     public ResponseEntity postFactor(
             @RequestBody final ConversionFactorDto conversionFactorDto,
-            @PathVariable final String unitType
+            @PathVariable final String category
     ) {
-        conversionFactorService.createConversionFactor(conversionFactorDto, unitType);
+        conversionFactorService.createConversionFactor(conversionFactorDto, category);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
-    @GetMapping("/{unitType}")
-    public ResponseEntity getFactors(
-            @PathVariable final String unitType
+    @GetMapping("/{category}")
+    public ResponseEntity<List<ConversionFactorDto>> getConversionFactors(
+            @PathVariable final String category
     ) {
-        conversionFactorService.getConversionFactors(unitType);
-        return new ResponseEntity(HttpStatus.CREATED);
+        return new ResponseEntity<>(conversionFactorService.getConversionFactors(category), HttpStatus.OK);
+    }
+
+    @GetMapping("/{category}/{targetUnit}")
+    public ResponseEntity<ConversionFactorDto> getConversionFactorByTargetUnit(
+            @PathVariable final String category,
+            @PathVariable final String targetUnit
+    ) {
+        return new ResponseEntity<>(conversionFactorService.getConversionFactorFor(category, targetUnit), HttpStatus.OK);
     }
 }
