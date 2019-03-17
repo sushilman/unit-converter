@@ -15,7 +15,7 @@ import com.example.unitconverter.service.UnitConversionService;
 @RequestMapping("/convert")
 public class ConversionController {
 
-    @Autowired
+	@Autowired
     private UnitConversionService unitConversionService;
 
     @GetMapping("/weight")
@@ -23,12 +23,12 @@ public class ConversionController {
             @RequestParam(required = true) final String from,
             @RequestParam(required = true) final Double value
     ) {
-        if ("grams".equalsIgnoreCase(from)) {
-            final ConversionResponseDto conversion = unitConversionService.getConversionFor(from, value);
-            return new ResponseEntity<>(conversion, HttpStatus.OK);
-        } else {
-            // TODO: implement :)
-            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
-        }
+		final ConversionResponseDto conversion = unitConversionService.getConversionFor(from, value);
+		if (conversion != null) {
+			return new ResponseEntity<>(conversion, HttpStatus.OK);
+		} else {
+			// TODO: implement :)
+			return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		}
     }
 }
