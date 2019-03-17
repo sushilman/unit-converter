@@ -2,6 +2,7 @@ package com.example.unitconverter.api.controllers;
 
 import com.example.unitconverter.api.dtos.ConversionCategoryDto;
 import com.example.unitconverter.api.dtos.ConversionFactorDto;
+import com.example.unitconverter.api.exceptions.NotFoundException;
 import com.example.unitconverter.service.ConversionCategoryService;
 import com.example.unitconverter.service.ConversionFactorService;
 import com.example.unitconverter.service.UnitConversionService;
@@ -43,7 +44,12 @@ public class ConfigurationsController {
             @RequestBody final ConversionFactorDto conversionFactorDto,
             @PathVariable final String category
     ) {
-        conversionFactorService.createConversionFactor(conversionFactorDto, category);
+        try {
+            conversionFactorService.createConversionFactor(conversionFactorDto, category);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
         return new ResponseEntity(HttpStatus.CREATED);
     }
 

@@ -99,6 +99,14 @@ public class ConfigurationsControllerIT {
     }
 
     @Test
+    public void testExceptionWhenCreatingFactorForNonExistingCategory() {
+        final String nonExistingCategory = "DoesNotExist";
+
+        final ConversionFactorDto conversionFactorDto = new ConversionFactorDto(nonExistingCategory, 0.001D);
+        postConversionFactor(nonExistingCategory, conversionFactorDto, HttpStatus.NOT_FOUND);
+    }
+
+    @Test
     public void testGetFactors() {
         final String category = "distance";
 

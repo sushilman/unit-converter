@@ -1,6 +1,7 @@
 package com.example.unitconverter.service;
 
 import com.example.unitconverter.api.dtos.ConversionFactorDto;
+import com.example.unitconverter.api.exceptions.NotFoundException;
 import com.example.unitconverter.entities.ConversionCategory;
 import com.example.unitconverter.entities.ConversionFactor;
 import com.example.unitconverter.repository.ConversionFactorRepository;
@@ -19,8 +20,13 @@ public class ConversionFactorService {
     @Autowired
     private ConversionCategoryService conversionCategoryService;
 
-    public void createConversionFactor(final ConversionFactorDto conversionFactorDto, final String category) {
+    public void createConversionFactor(final ConversionFactorDto conversionFactorDto, final String category) throws NotFoundException {
         final ConversionCategory conversionCategory = conversionCategoryService.getByCategory(category);
+
+        if (conversionCategory == null) {
+            throw new NotFoundException("Category not found.");
+        }
+
         ConversionFactor conversionFactor = ConversionFactor.fromDto(conversionFactorDto, conversionCategory);
         conversionFactorRepository.save(conversionFactor);
     }
