@@ -19,9 +19,9 @@ eg: `POST /configurations`
 }
 ```
 
-### POST/GET `/configurations/{category}/factors`
+### POST/GET `/configurations/{category}`
 
-eg: `POST /configurations/weight/factors`
+eg: `POST /configurations/weight`
 ```
 {
     "targetUnit": "kilograms",
