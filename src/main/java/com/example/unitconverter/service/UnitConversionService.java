@@ -15,8 +15,6 @@ public class UnitConversionService {
     @Autowired
     ConversionCategoryRepository conversionCategoryRepository;
 
-
-
     public ConversionResponseDto getConversionFor(final String from, final Double fromValue) {
 
         // TODO: use DB to save these configurations

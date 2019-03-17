@@ -1,0 +1,1 @@
+ALTER TABLE ONLY conversion_factor ADD CONSTRAINT conversion_factor_cat_id_and_target_unit_unique UNIQUE(conversion_category_id, target_unit);

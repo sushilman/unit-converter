@@ -2,7 +2,6 @@ package com.example.unitconverter.api.controllers;
 
 import com.example.unitconverter.api.dtos.ConversionCategoryDto;
 import com.example.unitconverter.api.dtos.ConversionResponseDto;
-import com.example.unitconverter.entities.ConversionCategory;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -13,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Collections;
@@ -24,6 +24,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
+@Sql(executionPhase = Sql.ExecutionPhase.BEFORE_TEST_METHOD, scripts = "classpath:cleandb.sql")
 public class ConversionControllerIT {
 
     private static final String BASE_PATH = "/convert";
@@ -56,7 +57,7 @@ public class ConversionControllerIT {
     }
 
     @Test
-    public void testPostConversion() {
+    public void testPostConversionCategory() {
         final ConversionCategoryDto conversionCategoryDto = new ConversionCategoryDto("distance", "meters");
         postConversionCategory(conversionCategoryDto, HttpStatus.CREATED);
     }
@@ -70,6 +71,17 @@ public class ConversionControllerIT {
             .statusCode(expectedStatus.value())
             .extract()
             .response();
+    }
+
+    private Response getConversionCategories(final Map<String, String> params, final HttpStatus expectedStatus) {
+        return given(getDefaultSpecs())
+                .when()
+                .queryParams(params)
+                .get(WEIGHT_CONVERSION_URI)
+                .then()
+                .statusCode(expectedStatus.value())
+                .extract()
+                .response();
     }
 
     private Response postConversionCategory(final ConversionCategoryDto conversionCategoryDto, final HttpStatus expectedStatus) {
