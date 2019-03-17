@@ -9,7 +9,7 @@ To run the application:
 
 Available endpoints:
 
-##POST/GET `/configurations`
+### POST/GET `/configurations`
 
 eg: `POST /configurations`
 ```
@@ -19,7 +19,7 @@ eg: `POST /configurations`
 }
 ```
 
-##POST/GET `/configurations/{category}/factors`
+### POST/GET `/configurations/{category}/factors`
 
 eg: `POST /configurations/weight/factors`
 ```
