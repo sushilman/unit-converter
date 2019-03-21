@@ -1,7 +1,9 @@
 package com.example.unitconverter.service;
 
-import com.example.unitconverter.api.dtos.ConversionResponseDto;
+import org.springframework.stereotype.Service;
 
-public interface UnitConversionService {
-	public ConversionResponseDto getConversionFor(final String from, final Double fromValue);
+@Service
+public class UnitConversionService {
+
+ //TODO:
 }

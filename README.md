@@ -2,11 +2,30 @@
 A sample springboot RESTful project
 
 To run the application:
+`$ docker-compose up`
 
-`gradle bootRun`
+`$ gradle bootRun`
 
-Then, try using postman or issue a curl command:
-`curl -X GET "http://localhost:8080/convert/weight?from=grams&value=99"`
 
-Available endpoints (query parameters are required):
-`/convert/weight?from=grams&value=${value}`
+Available endpoints:
+
+### POST/GET `/configurations`
+
+eg: `POST /configurations`
+```
+{
+    "category": "weight",
+    "baseUnit": "grams"
+}
+```
+
+### POST/GET `/configurations/{category}`
+
+eg: `POST /configurations/weight`
+```
+{
+    "targetUnit": "kilograms",
+    "factor": "0.001"
+}
+```
+

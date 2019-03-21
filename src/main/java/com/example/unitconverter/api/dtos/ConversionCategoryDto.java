@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
-public class ConvertedUnit {
-    private String unit;
-    private Double value;
+@AllArgsConstructor
+@NoArgsConstructor
+public class ConversionCategoryDto {
+    private String category;
+    private String baseUnit;
 }
