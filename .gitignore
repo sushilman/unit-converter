@@ -35,3 +35,4 @@ bin/main/com/example/unitconverter/service/UnitConversionService.class
 bin/main/com/example/unitconverter/UnitConverterApp.class
 bin/test/com/example/unitconverter/api/controllers/ConversionControllerIT.class
 bin/test/com/example/unitconverter/UnitConverterAppTests.class
+*.class
