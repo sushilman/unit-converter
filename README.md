@@ -29,8 +29,9 @@ eg: `POST /configurations/weight`
 }
 ```
 
-### GET `/conversions/weight?fromUnit=kilograms&value=10`
-eg: Response:
+### GET `/conversions/weight?fromUnit={unit}&value={value}`
+eg: `/conversions/weight?fromUnit=kilograms&value=10`
+Response:
 
 ```
 {
@@ -41,7 +42,7 @@ eg: Response:
         },
         {
             "unit": "kilograms",
-            "value": 1
+            "value": 10
         },
         {
             "unit": "pounds",
