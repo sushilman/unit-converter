@@ -29,7 +29,7 @@ public class ConfigurationsController {
     @PostMapping
     public ResponseEntity postCategory(
             @RequestBody final ConversionCategoryDto conversionCategoryDto
-    ) {
+    ) throws NotFoundException {
         conversionCategoryService.createConversionCategory(conversionCategoryDto);
         return new ResponseEntity(HttpStatus.CREATED);
     }

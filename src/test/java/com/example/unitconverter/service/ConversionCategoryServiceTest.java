@@ -1,6 +1,7 @@
 package com.example.unitconverter.service;
 
 import com.example.unitconverter.api.dtos.ConversionCategoryDto;
+import com.example.unitconverter.api.exceptions.NotFoundException;
 import com.example.unitconverter.entities.ConversionCategory;
 import com.example.unitconverter.repository.ConversionCategoryRepository;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class ConversionCategoryServiceTest {
     private ConversionCategoryService conversionCategoryService;
 
     @Test
-    public void testCreateConversionCategory() {
+    public void testCreateConversionCategory() throws NotFoundException {
         ConversionCategoryDto expectedConversionCategory = new ConversionCategoryDto();
         expectedConversionCategory.setCategory("distance");
         expectedConversionCategory.setBaseUnit("meters");

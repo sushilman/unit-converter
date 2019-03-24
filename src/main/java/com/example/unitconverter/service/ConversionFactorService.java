@@ -27,7 +27,7 @@ public class ConversionFactorService {
             throw new NotFoundException("Category not found.");
         }
 
-        ConversionFactor conversionFactor = ConversionFactor.fromDto(conversionFactorDto, conversionCategory);
+        final ConversionFactor conversionFactor = ConversionFactor.fromDto(conversionFactorDto, conversionCategory);
         conversionFactorRepository.save(conversionFactor);
     }
 
@@ -43,7 +43,7 @@ public class ConversionFactorService {
     }
 
     public ConversionFactorDto getConversionFactorFor(final String category, final String targetUnit) {
-        final ConversionFactorDto conversionFactorDto = conversionFactorRepository.findByConversionCategoryCategoryAndTargetUnit(category, targetUnit);
+        final ConversionFactorDto conversionFactorDto = ConversionFactor.toDto(conversionFactorRepository.findByConversionCategoryCategoryAndTargetUnit(category, targetUnit));
         return conversionFactorDto;
     }
 }

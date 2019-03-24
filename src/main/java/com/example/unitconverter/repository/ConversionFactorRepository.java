@@ -9,5 +9,5 @@ import java.util.List;
 public interface ConversionFactorRepository extends CrudRepository<ConversionFactor, String> {
     List<ConversionFactor> findByConversionCategoryCategory(String category);
 
-    ConversionFactorDto findByConversionCategoryCategoryAndTargetUnit(String category, String targetUnit);
+    ConversionFactor findByConversionCategoryCategoryAndTargetUnit(String category, String targetUnit);
 }
